@@ -4,7 +4,7 @@ import { utilService } from './util.service.js'
 
 const STORAGE_KEY = 'bugDB'
 
-export const bugService = {
+export const bugServiceAsync = {
     query,
     getById,
     save,

@@ -1,72 +1,65 @@
 [
-    {
-        "_id": "abc123",
-        "title": "Cannot save a new car",
-        "description": "Problem when clicking Save",
-        "severity": 3,
-        "createdAt": 1542107359454
-    },
-    {
-        "_id": "abc124",
-        "title": "Error loading user profile",
-        "description": "Profile data fails to load on login",
-        "severity": 2,
-        "createdAt": 1542107359455
-    },
-    {
-        "_id": "abc125",
-        "title": "UI layout issue on dashboard",
-        "description": "Widgets overlap on smaller screens",
-        "severity": 1,
-        "createdAt": 1542107359456
-    },
-    {
-        "_id": "abc126",
-        "title": "Database connection timeout",
-        "description": "Intermittent database connection issues",
-        "severity": 4,
-        "createdAt": 1542107359457
-    },
-    {
-        "_id": "abc127",
-        "title": "Email notifications not sent",
-        "description": "Users do not receive email notifications for updates",
-        "severity": 2,
-        "createdAt": 1542107359458
-    },
-    {
-        "_id": "abc128",
-        "title": "Login page slow response",
-        "description": "Login page takes a long time to load",
-        "severity": 3,
-        "createdAt": 1542107359459
-    },
-    {
-        "_id": "abc129",
-        "title": "App crashes on startup",
-        "description": "Application crashes immediately after launch",
-        "severity": 5,
-        "createdAt": 1542107359460
-    },
-    {
-        "_id": "abc130",
-        "title": "Settings not saved",
-        "description": "Changes in settings are not saved",
-        "severity": 2,
-        "createdAt": 1542107359461
-    },
-    {
-        "_id": "abc131",
-        "title": "Search functionality broken",
-        "description": "Search returns no results even for valid queries",
-        "severity": 3,
-        "createdAt": 1542107359462
-    },
-    {
-        "_id": "abc132",
-        "title": "Payment gateway integration issues",
-        "description": "Users unable to complete payments",
-        "severity": 4,
-        "createdAt": 1542107359463
-    }
+  {
+    "_id": "abc123",
+    "title": "Cannot save a new car",
+    "description": "Problem when clicking Save",
+    "severity": 3,
+    "createdAt": 1542107359454
+  },
+  {
+    "_id": "abc124",
+    "title": "Error loading user profile",
+    "description": "Profile data fails to load on login",
+    "severity": 2,
+    "createdAt": 1542107359455
+  },
+  {
+    "_id": "abc125",
+    "title": "UI layout issue on dashboard",
+    "description": "Widgets overlap on smaller screens",
+    "severity": 1,
+    "createdAt": 1542107359456
+  },
+  {
+    "_id": "abc127",
+    "title": "Email notifications not sent",
+    "description": "Users do not receive email notifications for updates",
+    "severity": 2,
+    "createdAt": 1542107359458
+  },
+  {
+    "_id": "abc128",
+    "title": "Login page slow response",
+    "description": "Login page takes a long time to load",
+    "severity": 3,
+    "createdAt": 1542107359459
+  },
+  {
+    "_id": "abc129",
+    "title": "App crashes on startup",
+    "description": "Application crashes immediately after launch",
+    "severity": 5,
+    "createdAt": 1542107359460
+  },
+  {
+    "_id": "abc130",
+    "title": "Settings not saved",
+    "description": "Changes in settings are not saved",
+    "severity": 2,
+    "createdAt": 1542107359461
+  },
+  {
+    "_id": "abc131",
+    "title": "Search functionality broken",
+    "description": "Search returns no results even for valid queries",
+    "severity": 3,
+    "createdAt": 1542107359462
+  },
+  {
+    "_id": "abc132",
+    "title": "Payment gateway integration issues",
+    "description": "Users unable to complete payments",
+    "severity": 4,
+    "createdAt": 1542107359463
+  }
 ]
