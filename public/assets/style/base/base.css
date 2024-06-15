@@ -3,6 +3,8 @@
 }
 
 html {
+  margin-inline-start: 1em;
+  margin-inline-end: 1em;
 }
 
 body {

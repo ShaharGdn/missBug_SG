@@ -9,6 +9,13 @@ const app = express()
 app.use(express.static('public'))
 app.use(cookieParser())
 
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*'); // Allow all origins
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS'); // Allow specific HTTP methods
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Allow specific headers
+    next()
+})
+
 // Express Routing:
 
 app.get('/api/bug', (req, res) => {
@@ -43,14 +50,6 @@ app.get('/api/bug/:id/remove', (req, res) => {
         .then(() => res.send(`bug ${id} deleted...`))
 })
 
-// app.get('/puki', (req, res) => {
-//     var visitCount = req.cookies.visitCount || 0
-//     // res.cookie('visitCount', ++visitCount)
-//     res.cookie('visitCount', ++visitCount, { maxAge: 3000 })
-// 	res.send(`<h1>Hello Puki ${visitCount}</h1>`)
-// })
-
-
-const port = 3030
+const port = 3031
 
 app.listen(port, () => loggerService.info(`Server listening on port http://127.0.0.1:${port}/`))
