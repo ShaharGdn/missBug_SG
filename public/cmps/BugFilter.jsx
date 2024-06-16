@@ -1,57 +1,20 @@
-const { useState, useEffect } = React
-
-export function BugFilter({ filterBy, onSetFilterBy }) {
-
-    const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
-
-
-    useEffect(() => {
-        onSetFilterBy(filterByToEdit)
-    }, [filterByToEdit])
+export function BugFilter({ onSetFilterBy }) {
 
     function handleChange({ target }) {
-        const field = target.name
-        let value = target.value
+        const { name, type, value } = target;
+        const parsedValue = (type === 'number') ? +value : value
 
-        switch (target.type) {
-            case 'number':
-            case 'range':
-                value = +value || ''
-                break;
-
-            case 'checkbox':
-                value = target.checked
-                break
-
-            default:
-                break;
-        }
-
-        setFilterByToEdit(prevFilter => ({ ...prevFilter, [field]: value }))
+        onSetFilterBy({ [name]: parsedValue })
     }
 
-    function onSubmitFilter(ev) {
-        ev.preventDefault()
-        onSetFilterBy(filterByToEdit)
-        console.log('filterByToEdit:', filterByToEdit)
-    }
-
-    const { title, description, severity } = filterByToEdit
     return (
         <section className="bug-filter">
-            <h2>Filter Our Bugs</h2>
-            <form onSubmit={onSubmitFilter}>
-                <label htmlFor="title">Title: </label>
-                <input value={title} onChange={handleChange} type="text" placeholder="By title" id="title" name="title" />
-
-                <label htmlFor="description">Description: </label>
-                <input value={description} onChange={handleChange} type="text" placeholder="By description" id="description" name="description" />
-
-                <label htmlFor="severity"> Severity: </label>
-                <input value={severity} onChange={handleChange} type="number" placeholder="By severity" id="severity" name="severity" />
-
-                <button>Set Filter</button>
-            </form>
+            <h1>filter the bugs</h1>
+            <label htmlFor="title">By Title: </label>
+            <input type="text" id="title" name="title" onInput={handleChange} />
+            <label htmlFor="severity">By severity: </label>
+            <input type="number" id="severity" name="severity" onChange={handleChange} />
         </section>
     )
+
 }

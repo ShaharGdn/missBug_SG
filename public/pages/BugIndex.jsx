@@ -8,7 +8,6 @@ const { useState, useEffect } = React
 export function BugIndex() {
   const [bugs, setBugs] = useState([])
   const [filterBy, setFilterBy] = useState(bugService.getDefaultFilter())
-  // const [filterBy, setFilterBy] = useState()
 
   useEffect(() => {
     loadBugs()
@@ -21,6 +20,7 @@ export function BugIndex() {
   function onSetFilterBy(filterBy) {
     setFilterBy(prevFilter => ({ ...prevFilter, ...filterBy }))
   }
+  
 
   function onRemoveBug(bugId) {
     bugService
