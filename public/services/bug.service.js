@@ -1,8 +1,3 @@
-
-import { log } from 'console'
-import { storageService } from './async-storage.service.js'
-import { utilService } from './util.service.js'
-
 const BASE_URL = 'http://127.0.0.1:3031/api/bug'
 
 export const bugService = {

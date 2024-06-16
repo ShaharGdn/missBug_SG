@@ -2,9 +2,9 @@
   {
     "_id": "abc127",
     "title": "Email notifications not sent",
+    "severity": 0,
     "description": "Users do not receive email notifications for updates",
-    "severity": 2,
-    "createdAt": 1542107359458
+    "createdAt": null
   },
   {
     "_id": "abc128",
@@ -14,25 +14,11 @@
     "createdAt": 1542107359459
   },
   {
-    "_id": "abc129",
-    "title": "App crashes on startup",
-    "description": "Application crashes immediately after launch",
-    "severity": 5,
-    "createdAt": 1542107359460
-  },
-  {
     "_id": "abc130",
     "title": "Settings not saved",
     "description": "Changes in settings are not saved",
     "severity": 2,
     "createdAt": 1542107359461
-  },
-  {
-    "_id": "abc131",
-    "title": "Search functionality broken",
-    "description": "Search returns no results even for valid queries",
-    "severity": 3,
-    "createdAt": 1542107359462
   },
   {
     "_id": "abc132",
@@ -53,6 +39,13 @@
     "title": "thty",
     "severity": null,
     "description": "rtyrty",
+    "createdAt": null
+  },
+  {
+    "_id": "eiMrPV",
+    "title": "null",
+    "severity": 1,
+    "description": "48",
     "createdAt": null
   }
 ]
