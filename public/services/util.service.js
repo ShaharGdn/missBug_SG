@@ -1,7 +1,11 @@
+import fs from 'fs'
+
 export const utilService = {
     makeId,
     makeLorem,
-    getRandomIntInclusive
+    getRandomIntInclusive,
+    debounce,
+    download
 }
 
 function makeId(length = 6) {
@@ -29,4 +33,31 @@ function getRandomIntInclusive(min, max) {
     min = Math.ceil(min)
     max = Math.floor(max)
     return Math.floor(Math.random() * (max - min + 1)) + min //The maximum is inclusive and the minimum is inclusive 
+}
+
+function debounce(fn, wait) {
+    let timer
+    return function (...args) {
+        // clear any pre-existing timer
+        if (timer) clearTimeout(timer)
+
+        const context = this
+
+        // call the function if time expires
+        timer = setTimeout(() => fn.apply(context, args), wait)
+    }
+}
+
+function download(url, fileName) {
+    return new Promise((resolve, reject) => {
+        const file = fs.createWriteStream(fileName)
+        https.get(url, (content) => {
+            content.pipe(file)
+            file.on('error', reject)
+            file.on('finish', () => {
+                file.close()
+                resolve()
+            })
+        })
+    })
 }

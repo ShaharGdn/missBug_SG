@@ -1,10 +1,17 @@
-export function BugFilter({ onSetFilterBy }) {
+const { useState, useEffect } = React
+
+export function BugFilter({ filterBy, onSetFilterBy }) {
+    const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
+
+    useEffect(() => {
+        onSetFilterBy(filterByToEdit)
+    }, [filterByToEdit])
 
     function handleChange({ target }) {
         const { name, type, value } = target;
         const parsedValue = (type === 'number') ? +value : value
 
-        onSetFilterBy({ [name]: parsedValue })
+        setFilterByToEdit({ [name]: parsedValue })
     }
 
     return (
