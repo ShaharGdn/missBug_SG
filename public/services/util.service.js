@@ -1,11 +1,8 @@
-import fs from 'fs'
-
 export const utilService = {
     makeId,
     makeLorem,
     getRandomIntInclusive,
-    debounce,
-    download
+    debounce
 }
 
 function makeId(length = 6) {
@@ -48,16 +45,3 @@ function debounce(fn, wait) {
     }
 }
 
-function download(url, fileName) {
-    return new Promise((resolve, reject) => {
-        const file = fs.createWriteStream(fileName)
-        https.get(url, (content) => {
-            content.pipe(file)
-            file.on('error', reject)
-            file.on('finish', () => {
-                file.close()
-                resolve()
-            })
-        })
-    })
-}

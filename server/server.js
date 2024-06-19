@@ -9,13 +9,15 @@ const app = express()
 
 app.use(express.static('public'))
 app.use(cookieParser())
+app.use(express.json())
 
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*'); // Allow all origins
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS'); // Allow specific HTTP methods
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Allow specific headers
-    next()
-})
+
+// app.use((req, res, next) => {
+//     res.header('Access-Control-Allow-Origin', '*'); // Allow all origins
+//     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS'); // Allow specific HTTP methods
+//     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Allow specific headers
+//     next()
+// })
 
 
 // Express Routing:
@@ -26,16 +28,9 @@ app.get('/api/bug', (req, res) => {
         .then(bugs => console.log('bugs:', bugs))
         .catch(err => {
             loggerService.error(`Couldn't get bugs...`)
+            console.log('err:', err)
             res.status(500).send(`Couldn't get bugs...`)
         })
-})
-
-app.get('/api/bug/save', (req, res) => {
-    const { _id, title, severity, description, createdAt } = req.query
-    const bugToSave = { _id, title, severity: +severity, description, createdAt: +createdAt }
-
-    bugService.save(bugToSave)
-        .then(savedBug => res.send(savedBug))
 })
 
 app.get('/api/bug/:id', (req, res) => {
@@ -54,8 +49,37 @@ app.get('/api/bug/:id', (req, res) => {
         })
 })
 
+app.put('/api/bug/:id', (req, res) => {
+    const { _id, title, severity, description, createdAt, labels } = req.body
+    const bugToSave = {
+        _id,
+        title,
+        severity: +severity,
+        description,
+        createdAt: +createdAt,
+        labels: labels || []
+    }
 
-app.get('/api/bug/:id/remove', (req, res) => {
+    bugService.save(bugToSave)
+        .then(savedBug => res.send(savedBug))
+})
+
+app.post('/api/bug', (req, res) => {
+    const { title, severity, description, createdAt, labels } = req.body
+    const bugToSave = {
+        title,
+        severity: +severity,
+        description,
+        createdAt: +createdAt,
+        labels: labels || []
+    }
+
+    bugService.save(bugToSave)
+        .then(savedBug => res.send(savedBug))
+})
+
+
+app.delete('/api/bug/:id', (req, res) => {
     const { id } = req.params
 
     bugService.remove(id)

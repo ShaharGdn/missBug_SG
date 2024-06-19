@@ -23,5 +23,6 @@ export function BugFilter({ filterBy, onSetFilterBy }) {
             <input type="number" id="severity" name="severity" onChange={handleChange} />
         </section>
     )
+} 
 
-}
+
