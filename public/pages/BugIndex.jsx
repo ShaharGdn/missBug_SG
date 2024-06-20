@@ -11,6 +11,7 @@ const { useState, useEffect, useRef } = React
 export function BugIndex() {
   const [bugs, setBugs] = useState([])
   const [filterBy, setFilterBy] = useState(bugService.getDefaultFilter())
+  const [bugsCount, setBugsCount] = useState()
 
   const debouncedSetFilterBy = useRef(utilService.debounce(onSetFilterBy, 500))
 
@@ -19,11 +20,19 @@ export function BugIndex() {
   }, [filterBy])
 
   function loadBugs() {
-    bugService.query(filterBy).then(setBugs)
+    bugService.query(filterBy)
+      .then(bugsData => {
+        setBugs(bugsData.data)
+        setBugsCount(bugsData.totalBugsCount)
+      })
+      .catch(err => {
+        console.error('Failed to load bugs:', err);
+      })
   }
 
+
   function onSetFilterBy(filterBy) {
-    setFilterBy(prevFilter => ({ ...prevFilter, ...filterBy }))
+    setFilterBy(prevFilter => ({ ...prevFilter, ...filterBy, pageIdx: 0 }))
   }
 
   function onRemoveBug(bugId) {
@@ -76,8 +85,12 @@ export function BugIndex() {
   }
 
   function onGetPage(diff) {
-    if (filterBy.pageIdx + diff < 0) return
-    // if (filterBy.pageIdx + diff > ((bugs.length / 5) + 1)) return 
+    if (filterBy.pageIdx + diff < 0) {
+      return setFilterBy(prevFilter => ({ ...prevFilter, pageIdx: Math.ceil(bugsCount / 5) - 1 }))
+    }
+    if (filterBy.pageIdx + diff > (Math.ceil(bugsCount / 5) - 1)) {
+      return setFilterBy(prevFilter => ({ ...prevFilter, pageIdx: 0 }))
+    }
     setFilterBy(prev => ({ ...prev, pageIdx: prev.pageIdx + diff }))
   }
 
@@ -95,7 +108,8 @@ export function BugIndex() {
         <button onClick={onAddBug}>Add Bug 🪲</button>
         <button onClick={() => onGetPage(-1)}>-</button>
         <span>{filterBy.pageIdx + 1}</span>
-        <button onClick={() => onGetPage(1)}>+</button>        <BugList bugs={bugs} onRemoveBug={onRemoveBug} onEditBug={onEditBug} />
+        <button onClick={() => onGetPage(1)}>+</button>
+        <BugList bugs={bugs} onRemoveBug={onRemoveBug} onEditBug={onEditBug} />
       </main>
     </main>
   )

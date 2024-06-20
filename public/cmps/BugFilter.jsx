@@ -36,7 +36,7 @@ export function BugFilter({ filterBy, onSetFilterBy }) {
                 <label htmlFor="severity">By Severity: </label>
                 <input type="number" id="severity" name="severity" min={0} onChange={handleChange} /><br />
 
-                <span >By Labels: </span><br />
+                <span >By Labels: </span><br /><br />
                 <label htmlFor="backend">Backend: </label>
                 <input type="checkbox" id="backend" name="backend" onChange={handleChange} />
 

@@ -24,17 +24,6 @@
     ]
   },
   {
-    "_id": "abc125",
-    "title": "Data not loading",
-    "description": "Data from server not loading properly",
-    "severity": 4,
-    "createdAt": 1542107359456,
-    "labels": [
-      "backend",
-      "critical"
-    ]
-  },
-  {
     "_id": "abc126",
     "title": "Form validation error",
     "description": "Validation errors not shown to the user",

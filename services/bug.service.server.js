@@ -10,7 +10,7 @@ export const bugService = {
     remove,
 }
 
-const PAGE_SIZE = 100
+const PAGE_SIZE = 5
 
 function query(filterBy) {
     var filteredBugs = bugs
@@ -31,12 +31,19 @@ function query(filterBy) {
             }
         })
     }
-    
+
 
     const startIdx = filterBy.pageIdx * PAGE_SIZE
     filteredBugs = filteredBugs.slice(startIdx, startIdx + PAGE_SIZE)
 
-    return Promise.resolve(filteredBugs)
+
+    const bugsData = {
+        totalBugsCount: bugs.length,
+        data: filteredBugs
+    }
+
+
+    return Promise.resolve(bugsData)
 }
 
 function getById(bugId) {
@@ -52,7 +59,7 @@ function remove(bugId) {
 }
 
 function save(bugToSave) {
-    if(bugToSave._id) {
+    if (bugToSave._id) {
         const idx = bugs.findIndex(bug => bug._id === bugToSave._id)
         bugs.splice(idx, 1, bugToSave)
     } else {
@@ -64,5 +71,5 @@ function save(bugToSave) {
 }
 
 function _saveBugsToFile() {
-    return  utilService.writeJsonFile('./data/bug.json', bugs)
+    return utilService.writeJsonFile('./data/bug.json', bugs)
 }
