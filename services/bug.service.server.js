@@ -10,7 +10,7 @@ export const bugService = {
     remove,
 }
 
-const PAGE_SIZE = 5
+const PAGE_SIZE = 100
 
 function query(filterBy) {
     var filteredBugs = bugs
@@ -24,9 +24,14 @@ function query(filterBy) {
     }
     if (filterBy.labels.length) {
         filteredBugs = filteredBugs.filter(bug => {
-            return bug.labels.every(label => filterBy.labels.includes(label))
+            if (filterBy.labels.length === 1) {
+                return bug.labels.some(label => filterBy.labels.includes(label));
+            } else {
+                return filterBy.labels.every(label => bug.labels.includes(label));
+            }
         })
     }
+    
 
     const startIdx = filterBy.pageIdx * PAGE_SIZE
     filteredBugs = filteredBugs.slice(startIdx, startIdx + PAGE_SIZE)
