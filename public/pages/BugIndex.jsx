@@ -75,6 +75,12 @@ export function BugIndex() {
       })
   }
 
+  function onGetPage(diff) {
+    if (filterBy.pageIdx + diff < 0) return
+    // if (filterBy.pageIdx + diff > ((bugs.length / 5) + 1)) return 
+    setFilterBy(prev => ({ ...prev, pageIdx: prev.pageIdx + diff }))
+  }
+
   // function onPDFDownload() {
   //   pdfService.buildPDF('../assets/pdf/bugs.pdf', bugs)
   //     // .then(utilService.download('./assets/pdf/bugs.pdf', 'bugs.pdf'))
@@ -87,7 +93,9 @@ export function BugIndex() {
       {/* <button onClick={onPDFDownload}>Download Bugs Pdf</button> */}
       <main>
         <button onClick={onAddBug}>Add Bug 🪲</button>
-        <BugList bugs={bugs} onRemoveBug={onRemoveBug} onEditBug={onEditBug} />
+        <button onClick={() => onGetPage(-1)}>-</button>
+        <span>{filterBy.pageIdx + 1}</span>
+        <button onClick={() => onGetPage(1)}>+</button>        <BugList bugs={bugs} onRemoveBug={onRemoveBug} onEditBug={onEditBug} />
       </main>
     </main>
   )

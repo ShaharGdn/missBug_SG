@@ -21,13 +21,18 @@ export function BugDetails() {
             })
     }, [])
 
-    if (!bug) return <h1>loadings....</h1>
-    return <div>
-        <h3>Bug Details 🐛</h3>
-        <h4>{bug.title}</h4>
+    if (!bug) return <h1>loading....</h1>
+    return <div className='bug-details'>
+        <h1>Bug Details 🐛</h1>
+        <h5>Issue: {bug.title}</h5>
         <p>Severity: <span>{bug.severity}</span></p>
-        <p>description: <span>{bug.description}</span></p>
-        <Link to="/bug">Back to List</Link>
+        <p>Description: <span>{bug.description}</span></p>
+        <span>Labels: </span>
+        <section className="labels">{bug.labels.map(label => {
+            return <span>{label}  </span>
+        })}
+        </section>
+        <Link to="/bug" className="btn-back">Back to List</Link>
     </div>
 
 }

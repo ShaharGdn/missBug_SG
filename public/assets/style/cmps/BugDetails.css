@@ -1,18 +1,36 @@
-.car-details {
+.bug-details {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    font-family: 'Edu VIC WA NT Beginner', cursive;
 }
-.car-details h1 {
+.bug-details h1 {
     color: var(--clr1);
     font-size: 2em;
     
 }
-.car-details h5 {
-    color: var(--clr2);
+.bug-details h5 {
+    font-size: 1em;
+    background-color: #c5c5c594;
+    padding: 0.5em;
 }
-.car-details img {
+
+.bug-details img {
     max-width: 200px;
     display: block;
     margin: auto;
+}
+
+.bug-details .btn-back {
+    background-color: lavender;
+    padding: 0.5em;
+    border-radius: 5px;
+}
+
+.bug-details .btn-back:hover {
+    box-shadow: 6px 3px 8px 0px rgba(0, 0, 0, 0.148);
+}
+
+.bug-details .labels {
+    padding-bottom: 1em;
 }

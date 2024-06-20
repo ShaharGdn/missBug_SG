@@ -1,146 +1,122 @@
 [
-  {
-    "_id": "abc123",
-    "title": "Cannot save a Car",
-    "description": "Problem when clicking Save",
-    "severity": 3,
-    "createdAt": 1542107359454,
-    "labels": [
-      "critical",
-      "need-CR",
-      "dev-branch"
-    ]
-  },
-  {
-    "_id": "abc124",
-    "title": "UI not responsive",
-    "severity": 0,
-    "description": "UI freezes when clicking the submit button",
-    "createdAt": 1542107359455,
-    "labels": [
-      "ui",
-      "frontend"
-    ]
-  },
-  {
-    "_id": "abc125",
-    "title": "Data not loading",
-    "description": "Data from server not loading properly",
-    "severity": 4,
-    "createdAt": 1542107359456,
-    "labels": [
-      "backend",
-      "urgent"
-    ]
-  },
-  {
-    "_id": "abc126",
-    "title": "Form validation error",
-    "description": "Validation errors not shown to the user",
-    "severity": 3,
-    "createdAt": 1542107359457,
-    "labels": [
-      "frontend",
-      "bug"
-    ]
-  },
-  {
-    "_id": "abc127",
-    "title": "Memory leak in application",
-    "description": "Memory usage increases over time",
-    "severity": 5,
-    "createdAt": 1542107359458,
-    "labels": [
-      "critical",
-      "performance"
-    ]
-  },
-  {
-    "_id": "abc128",
-    "title": "Login fails",
-    "description": "Users unable to login with correct credentials",
-    "severity": 4,
-    "createdAt": 1542107359459,
-    "labels": [
-      "authentication",
-      "urgent"
-    ]
-  },
-  {
-    "_id": "abc129",
-    "title": "Page crash on load",
-    "description": "Page crashes when loading data",
-    "severity": 5,
-    "createdAt": 1542107359460,
-    "labels": [
-      "critical",
-      "dev-branch"
-    ]
-  },
-  {
-    "_id": "abc130",
-    "title": "Incorrect data display",
-    "description": "Data displayed is not correct",
-    "severity": 3,
-    "createdAt": 1542107359461,
-    "labels": [
-      "backend",
-      "bug"
-    ]
-  },
-  {
-    "_id": "abc131",
-    "title": "Unable to download report",
-    "description": "Download link not working",
-    "severity": 2,
-    "createdAt": 1542107359462,
-    "labels": [
-      "frontend",
-      "low"
-    ]
-  },
-  {
-    "_id": "abc134",
-    "title": "Performance issues",
-    "description": "Application is slow",
-    "severity": 3,
-    "createdAt": 1542107359465,
-    "labels": [
-      "performance",
-      "bug"
-    ]
-  },
-  {
-    "_id": "abc135",
-    "title": "Database connection error",
-    "description": "Cannot connect to database",
-    "severity": 4,
-    "createdAt": 1542107359466,
-    "labels": [
-      "backend",
-      "urgent"
-    ]
-  },
-  {
-    "_id": "abc136",
-    "title": "Notification not working",
-    "description": "Users do not receive notifications",
-    "severity": 2,
-    "createdAt": 1542107359467,
-    "labels": [
-      "frontend",
-      "low"
-    ]
-  },
-  {
-    "_id": "abc137",
-    "title": "CSS issues on mobile",
-    "description": "CSS not rendering properly on mobile devices",
-    "severity": 1,
-    "createdAt": 1542107359468,
-    "labels": [
-      "ui",
-      "mobile"
-    ]
-  }
+    {
+        "_id": "abc123",
+        "title": "Cannot save a Car",
+        "description": "Problem when clicking Save",
+        "severity": 3,
+        "createdAt": 1542107359454,
+        "labels": ["critical", "frontend", "backend", "bug"]
+    },
+    {
+        "_id": "abc124",
+        "title": "UI not responsive",
+        "description": "UI freezes when clicking the submit button",
+        "severity": 2,
+        "createdAt": 1542107359455,
+        "labels": ["frontend", "bug"]
+    },
+    {
+        "_id": "abc125",
+        "title": "Data not loading",
+        "description": "Data from server not loading properly",
+        "severity": 4,
+        "createdAt": 1542107359456,
+        "labels": ["backend", "critical"]
+    },
+    {
+        "_id": "abc126",
+        "title": "Form validation error",
+        "description": "Validation errors not shown to the user",
+        "severity": 3,
+        "createdAt": 1542107359457,
+        "labels": ["frontend", "bug"]
+    },
+    {
+        "_id": "abc127",
+        "title": "Memory leak in application",
+        "description": "Memory usage increases over time",
+        "severity": 5,
+        "createdAt": 1542107359458,
+        "labels": ["critical", "backend", "bug"]
+    },
+    {
+        "_id": "abc128",
+        "title": "Login fails",
+        "description": "Users unable to login with correct credentials",
+        "severity": 4,
+        "createdAt": 1542107359459,
+        "labels": ["critical", "frontend"]
+    },
+    {
+        "_id": "abc129",
+        "title": "Page crash on load",
+        "description": "Page crashes when loading data",
+        "severity": 5,
+        "createdAt": 1542107359460,
+        "labels": ["frontend", "bug"]
+    },
+    {
+        "_id": "abc130",
+        "title": "Incorrect data display",
+        "description": "Data displayed is not correct",
+        "severity": 3,
+        "createdAt": 1542107359461,
+        "labels": ["backend", "bug"]
+    },
+    {
+        "_id": "abc131",
+        "title": "Unable to download report",
+        "description": "Download link not working",
+        "severity": 2,
+        "createdAt": 1542107359462,
+        "labels": ["frontend"]
+    },
+    {
+        "_id": "abc132",
+        "title": "API call fails",
+        "description": "API returns 500 error",
+        "severity": 4,
+        "createdAt": 1542107359463,
+        "labels": ["backend", "critical"]
+    },
+    {
+        "_id": "abc133",
+        "title": "Unexpected logout",
+        "description": "Users are logged out unexpectedly",
+        "severity": 5,
+        "createdAt": 1542107359464,
+        "labels": ["critical", "frontend"]
+    },
+    {
+        "_id": "abc134",
+        "title": "Performance issues",
+        "description": "Application is slow",
+        "severity": 3,
+        "createdAt": 1542107359465,
+        "labels": ["bug"]
+    },
+    {
+        "_id": "abc135",
+        "title": "Database connection error",
+        "description": "Cannot connect to database",
+        "severity": 4,
+        "createdAt": 1542107359466,
+        "labels": ["backend", "critical"]
+    },
+    {
+        "_id": "abc136",
+        "title": "Notification not working",
+        "description": "Users do not receive notifications",
+        "severity": 2,
+        "createdAt": 1542107359467,
+        "labels": ["frontend"]
+    },
+    {
+        "_id": "abc137",
+        "title": "CSS issues on mobile",
+        "description": "CSS not rendering properly on mobile devices",
+        "severity": 1,
+        "createdAt": 1542107359468,
+        "labels": ["frontend", "bug"]
+    }
 ]

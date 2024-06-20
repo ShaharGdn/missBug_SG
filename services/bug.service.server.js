@@ -10,8 +10,28 @@ export const bugService = {
     remove,
 }
 
-function query() {
-    return Promise.resolve(bugs)
+const PAGE_SIZE = 5
+
+function query(filterBy) {
+    var filteredBugs = bugs
+
+    if (filterBy.txt) {
+        const regExp = new RegExp(filterBy.txt, 'i')
+        filteredBugs = filteredBugs.filter(bug => regExp.test(bug.title) || regExp.test(bug.description))
+    }
+    if (filterBy.severity) {
+        filteredBugs = filteredBugs.filter(bug => bug.severity >= filterBy.severity)
+    }
+    if (filterBy.labels.length) {
+        filteredBugs = filteredBugs.filter(bug => {
+            return bug.labels.every(label => filterBy.labels.includes(label))
+        })
+    }
+
+    const startIdx = filterBy.pageIdx * PAGE_SIZE
+    filteredBugs = filteredBugs.slice(startIdx, startIdx + PAGE_SIZE)
+
+    return Promise.resolve(filteredBugs)
 }
 
 function getById(bugId) {

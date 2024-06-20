@@ -16,3 +16,8 @@
     padding: 1em;
     margin: auto;
 }
+
+footer {
+    position: fixed;
+    bottom: 0;
+}

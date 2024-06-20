@@ -3,7 +3,6 @@ import cookieParser from 'cookie-parser'
 
 import { bugService } from '../services/bug.service.server.js'
 import { loggerService } from '../services/logger.service.js'
-import { utilService } from '../services/util.service.js'
 
 const app = express()
 
@@ -12,18 +11,15 @@ app.use(cookieParser())
 app.use(express.json())
 
 
-// app.use((req, res, next) => {
-//     res.header('Access-Control-Allow-Origin', '*'); // Allow all origins
-//     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS'); // Allow specific HTTP methods
-//     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Allow specific headers
-//     next()
-// })
-
-
-// Express Routing:
-
 app.get('/api/bug', (req, res) => {
-    bugService.query()
+    const filterBy = {
+        txt: req.query.txt || '',
+        labels: req.query.labels || [],
+        createdAt: +req.query.createdAt || 0,
+        severity: +req.query.severity || 0,
+        pageIdx: +req.query.pageIdx || 0,
+    }
+    bugService.query(filterBy)
         .then(bugs => res.send(bugs))
         .then(bugs => console.log('bugs:', bugs))
         .catch(err => {
