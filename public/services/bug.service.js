@@ -10,9 +10,9 @@ export const bugService = {
 }
 
 function query(filterBy = {}) {
+    console.log('filterBy:', filterBy)
     return axios.get(BASE_URL, { params: filterBy })
         .then(res => res.data)
-        .then(console.log('filterBy:', filterBy))
 }
 
 function getById(bugId) {
@@ -40,5 +40,12 @@ function getEmptyBug() {
 }
 
 function getDefaultFilter() {
-    return { txt: '', severity: 0, labels: [], sortBy: '', sortDir: '', pageIdx: 0 }
+    return {
+        txt: '',
+        severity: 0,
+        labels: [],
+        sortBy: '',
+        sortDir: 1,
+        pageIdx: 0
+    }
 }

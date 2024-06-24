@@ -3,14 +3,14 @@
 }
 
 html {
-  margin-inline-start: 1em;
-  margin-inline-end: 1em;
+  font-family: 'Edu VIC WA NT Beginner', cursive;
 }
 
 body {
   margin: 0;
   color: var(--gray3);
 }
+
 
 h1,
 h2,
@@ -50,4 +50,22 @@ object {
 
 .about nav a {
     margin-right: 10px;
+}
+
+button {
+  font-family: 'Edu VIC WA NT Beginner', cursive;
+}
+
+body>* {
+  margin-inline-start: 1em;
+  margin-inline-end: 1em;
+}
+
+html body>footer {
+  position: fixed;
+  bottom: 0;
+  background-color: var(--clr1bg-light);
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }

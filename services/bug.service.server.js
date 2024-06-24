@@ -24,14 +24,29 @@ function query(filterBy) {
     }
     if (filterBy.labels.length) {
         filteredBugs = filteredBugs.filter(bug => {
-            if (filterBy.labels.length === 1) {
-                return bug.labels.some(label => filterBy.labels.includes(label));
-            } else {
-                return filterBy.labels.every(label => bug.labels.includes(label));
-            }
+            return filterBy.labels.every(label => bug.labels.includes(label));
+        })
+    }
+    if (filterBy.sortBy === 'title') {
+        filteredBugs.sort((b1, b2) => {
+            return b1.title.localeCompare(b2.title) * filterBy.sortDir
+        })
+    } else if (filterBy.sortBy === 'severity') {
+        filteredBugs.sort((b1, b2) => {
+            return (new Date(b1.severity) - new Date(b2.severity)) * filterBy.sortDir
+        })
+    } else if (filterBy.sortBy === 'createdAt') {
+        filteredBugs.sort((b1, b2) => {
+            return (new Date(b1.createdAt) - new Date(b2.createdAt)) * filterBy.sortDir
         })
     }
 
+    if (filterBy.pageIdx < 0) {
+        return filterBy.pageIdx = 0
+    }
+    if (filterBy.pageIdx > (Math.ceil(bugs.length / PAGE_SIZE) - 1)) {
+        return filterBy.pageIdx = 0
+    }
 
     const startIdx = filterBy.pageIdx * PAGE_SIZE
     filteredBugs = filteredBugs.slice(startIdx, startIdx + PAGE_SIZE)
@@ -41,7 +56,6 @@ function query(filterBy) {
         totalBugsCount: bugs.length,
         data: filteredBugs
     }
-
 
     return Promise.resolve(bugsData)
 }
