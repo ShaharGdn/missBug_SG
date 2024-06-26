@@ -30,7 +30,7 @@ function doLog(level, ...args) {
     var line = strs.join(' | ')
     line = `${_getTime()} - ${level} - ${line}\n`
 
-    console.log(line)
+    // console.log(line)
     fs.appendFile(`${logsDir}/backend.log`, line, (err) => {
         if (err) console.log('FATAL: cannot write to log file')
     })
