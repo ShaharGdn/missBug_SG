@@ -41,15 +41,15 @@ function query(filterBy) {
         })
     }
 
-    if (filterBy.pageIdx < 0) {
-        return filterBy.pageIdx = 0
-    }
-    if (filterBy.pageIdx > (Math.ceil(bugs.length / PAGE_SIZE) - 1)) {
-        return filterBy.pageIdx = 0
-    }
+    // if (filterBy.pageIdx < 0) {
+    //     return filterBy.pageIdx = 0
+    // }
+    // if (filterBy.pageIdx > (Math.ceil(bugs.length / PAGE_SIZE) - 1)) {
+    //     return filterBy.pageIdx = 0
+    // }
 
-    const startIdx = filterBy.pageIdx * PAGE_SIZE
-    filteredBugs = filteredBugs.slice(startIdx, startIdx + PAGE_SIZE)
+    // const startIdx = filterBy.pageIdx * PAGE_SIZE
+    // filteredBugs = filteredBugs.slice(startIdx, startIdx + PAGE_SIZE)
 
 
     const bugsData = {

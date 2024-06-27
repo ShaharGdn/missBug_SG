@@ -27,6 +27,10 @@ export function BugDetails() {
             {bug.title}
         </h5>
         <p>
+            <span className="bold">Creator: </span>
+            <span>{bug.creator.fullname}</span>
+        </p>
+        <p>
             <span className="bold">Severity: </span>
             <span>{bug.severity}</span>
         </p>
