@@ -1,8 +1,9 @@
+import path from 'path'
 import express from 'express'
 import cookieParser from 'cookie-parser'
 
-import { bugService } from '../services/bug.service.server.js'
-import { loggerService } from '../services/logger.service.js'
+import { bugService } from './services/bug.service.server.js'
+import { loggerService } from './services/logger.service.js'
 
 const app = express()
 
@@ -21,7 +22,7 @@ app.get('/api/bug', (req, res) => {
         sortBy: req.query.sortBy || '',
         sortDir: req.query.sortDir || 1
     }
-    
+
     bugService.query(filterBy)
         .then(bugs => res.send(bugs))
         .then(bugs => console.log('bugs:', bugs))
@@ -68,6 +69,7 @@ app.get('/api/bug/download', (req, res) => {
 })
 
 app.get('/api/bug/:id', (req, res) => {
+    console.log('hi')
     const { id } = req.params
     var visitedBugs = req.cookies.visitedBugs ? JSON.parse(req.cookies.visitedBugs) : []
 
@@ -120,11 +122,13 @@ app.delete('/api/bug/:id', (req, res) => {
         .then(() => res.send(`bug ${id} deleted...`))
 })
 
-const port = 3031
+app.get('/**', (req, res) => {
+    res.sendFile(path.resolve('public/index.html'))
+})
 
-app.listen(port, () => loggerService.info(`Server listening on port http://127.0.0.1:${port}/`))
-
-
+const PORT = process.env.PORT || 3030
+app.listen(PORT,
+    () => loggerService.info(`Server listening on port http://127.0.0.1:${PORT}/`))
 
 
 

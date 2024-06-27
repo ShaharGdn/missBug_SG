@@ -1,5 +1,5 @@
 
-const Router = ReactRouterDOM.HashRouter
+const Router = ReactRouterDOM.BrowserRouter
 const { Route, Routes } = ReactRouterDOM
 
 
@@ -10,7 +10,7 @@ import { BugIndex } from './pages/BugIndex.jsx'
 import { BugDetails } from './pages/BugDetails.jsx'
 import { AboutUs } from './pages/AboutUs.jsx'
 
-export function App() {
+export function RootCmp() {
   return (
     <Router>
       <div>

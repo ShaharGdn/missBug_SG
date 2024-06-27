@@ -1,13 +1,14 @@
 {
   "name": "miss-bug-starter-react",
   "version": "1.0.0",
-  "main": "./public/app.js",
+  "main": "public/app.js",
   "type": "module",
   "directories": {
     "lib": "lib"
   },
   "scripts": {
-    "start": "nodemon --ignore \"./data\" server.js",
+    "dev": "set SECRET1=bobi-ba-1971&nodemon --ignore \"./data\" server.js",
+    "start:mac": "export PORT=3030 && node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -15,6 +16,7 @@
   "description": "",
   "dependencies": {
     "cookie-parser": "^1.4.6",
+    "cryptr": "^6.3.0",
     "express": "^4.19.2",
     "follow-redirects": "^1.15.6",
     "fs": "^0.0.1-security",

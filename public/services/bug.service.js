@@ -1,4 +1,4 @@
-const BASE_URL = 'http://127.0.0.1:3031/api/bug'
+const BASE_URL = '/api/bug'
 
 export const bugService = {
     query,
