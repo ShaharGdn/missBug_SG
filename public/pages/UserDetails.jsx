@@ -12,8 +12,6 @@ export function UserDetails() {
     const params = useParams()
     const navigate = useNavigate()
 
-    console.log('params.userId:', params.userId)
-
     useEffect(() => {
         loadUser()
         getUserBugs()
@@ -38,14 +36,10 @@ export function UserDetails() {
     }
 
     function getUserBugs() {
-        bugService.query()
-            .then(bugsData => {
-                // console.log('bugsData:', bugsData)
-                console.log('user:', user)
-                // const userBugs = bugsData.data.filter(bug => console.log('bug:', bug.creator._id))
-                const userBugs = bugsData.data.filter(bug => bug.creator._id === params.userId)
-                console.log('userBugs:', userBugs)
-                setBugs(userBugs)
+        bugService.query({ userId: params.userId })
+            .then(userBugs => {
+                setBugs(userBugs.data)
+                // setBugs(userBugs)
             })
             .catch(err => {
                 console.error('Failed to load bugs:', err)

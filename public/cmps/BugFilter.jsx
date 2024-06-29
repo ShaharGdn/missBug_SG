@@ -1,6 +1,6 @@
 const { useState, useEffect } = React
 
-export function BugFilter({ filterBy, onSetFilterBy }) {
+export function BugFilter({ filterBy, onSetFilterBy, labels: availableLabels }) {
     const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
     const [isAscending, setIsAscending] = useState(true)
 
@@ -38,35 +38,58 @@ export function BugFilter({ filterBy, onSetFilterBy }) {
         setFilterByToEdit(prev => ({ ...prev, [name]: labels }))
     }
 
+    const { txt, severity, sortBy, sortDir, labels } = filterByToEdit
+
     return (
         <section className="bug-filter">
             <h1>filter the bugs</h1>
             <section className="filter-sort">
                 <label htmlFor="txt">By Text: </label>
-                <input type="txt" id="txt" name="txt" onInput={handleChange} /><br />
+                <input
+                    type="txt"
+                    id="txt"
+                    name="txt"
+                    value={txt}
+                    onInput={handleChange} />
 
                 <label htmlFor="severity">By Severity: </label>
-                <input type="number" id="severity" name="severity" min={0} onChange={handleChange} /><br />
+                <input
+                    type="number"
+                    id="severity"
+                    name="severity"
+                    min={0}
+                    value={severity}
+                    onChange={handleChange} />
+                <div>
+                    <h3>Labels:</h3>
+                    {availableLabels.map(label => (
+                        <label key={label}>
+                            <input
+                                type="checkbox"
+                                name={label}
+                                checked={labels.includes(label)}
+                                onChange={handleLabelChange}
+                            />
+                            {label}
+                        </label>
+                    ))}
+                </div>
 
-                <span >By Labels: </span><br /><br />
-                <label htmlFor="backend">Backend: </label>
-                <input type="checkbox" id="backend" name="backend" onChange={handleChange} />
-
-                <label htmlFor="critical">Critical: </label>
-                <input type="checkbox" id="critical" name="critical" onChange={handleLabelChange} />
-
-                <label htmlFor="frontend">Frontend: </label>
-                <input type="checkbox" id="frontend" name="frontend" onChange={handleLabelChange} />
-
-                <label htmlFor="bug">Bug: </label>
-                <input type="checkbox" id="bug" name="bug" onChange={handleLabelChange} />
-
-                <br /><br />
                 <span>Sort By: </span>
-                <input type="checkbox" id="sort-dir" name="sortDir" onChange={handleChange} />
+                <input
+                    type="checkbox"
+                    id="sort-dir"
+                    name="sortDir"
+                    value={sortDir}
+                    onChange={handleChange} />
+
                 <label htmlFor="sort-dir">{isAscending ? 'Ascending' : 'Descending'}</label>
 
-                <select name="sortBy" id="sort-by" onChange={handleChange}>
+                <select
+                    name="sortBy"
+                    id="sort-by"
+                    onChange={handleChange}
+                    value={sortBy}>
                     <option value="select">Choose Sorting</option>
                     <option value="title">Title</option>
                     <option value="severity">Severity</option>

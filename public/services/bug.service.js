@@ -6,7 +6,10 @@ export const bugService = {
     save,
     remove,
     getDefaultFilter,
-    getEmptyBug
+    getEmptyBug,
+    getLabels,
+    getPageCount,
+    downloadPdf
 }
 
 function query(filterBy = {}) {
@@ -47,4 +50,17 @@ function getDefaultFilter() {
         sortDir: 1,
         pageIdx: 0
     }
+}
+
+function getLabels() {
+    return axios.get(BASE_URL + '/labels').then(res => res.data)
+}
+
+function getPageCount() {
+    return axios.get(BASE_URL + '/pageCount').then(res => res.data)
+}
+
+function downloadPdf() {
+    return axios.get(BASE_URL + '/download')
+        .then(res => res.data)
 }

@@ -1,19 +1,22 @@
 
 import { utilService } from './util.service.js'
 
-var bugs = utilService.readJsonFile('./data/bug.json')
 
 export const bugService = {
     query,
     getById,
     save,
     remove,
+    getPageCount,
+    getLabels
 }
 
+var bugs = utilService.readJsonFile('./data/bug.json')
 const PAGE_SIZE = 5
 
 function query(filterBy) {
     var filteredBugs = bugs
+    if (!filterBy) return Promise.resolve(filteredBugs)
 
     if (filterBy.txt) {
         const regExp = new RegExp(filterBy.txt, 'i')
@@ -22,11 +25,14 @@ function query(filterBy) {
     if (filterBy.severity) {
         filteredBugs = filteredBugs.filter(bug => bug.severity >= filterBy.severity)
     }
-    if (filterBy.labels.length) {
-        filteredBugs = filteredBugs.filter(bug => {
-            return filterBy.labels.every(label => bug.labels.includes(label));
-        })
+    if (filterBy.userId) {
+        filteredBugs = filteredBugs.filter(bug => bug.creator._id === filterBy.userId)
     }
+    if (filterBy.labels?.length) {
+        filteredBugs = filteredBugs.filter(bug => filterBy.labels.every(label => bug.labels.includes(label)))
+    }
+
+    // sorting
     if (filterBy.sortBy === 'title') {
         filteredBugs.sort((b1, b2) => {
             return b1.title.localeCompare(b2.title) * filterBy.sortDir
@@ -41,23 +47,10 @@ function query(filterBy) {
         })
     }
 
-    // if (filterBy.pageIdx < 0) {
-    //     return filterBy.pageIdx = 0
-    // }
-    // if (filterBy.pageIdx > (Math.ceil(bugs.length / PAGE_SIZE) - 1)) {
-    //     return filterBy.pageIdx = 0
-    // }
-
-    // const startIdx = filterBy.pageIdx * PAGE_SIZE
-    // filteredBugs = filteredBugs.slice(startIdx, startIdx + PAGE_SIZE)
-
-
-    const bugsData = {
-        totalBugsCount: bugs.length,
-        data: filteredBugs
-    }
-
-    return Promise.resolve(bugsData)
+    // pagination
+    const startIdx = filterBy.pageIdx * PAGE_SIZE
+    filteredBugs = filteredBugs.slice(startIdx, startIdx + PAGE_SIZE)
+    return Promise.resolve(filteredBugs)
 }
 
 function getById(bugId) {
@@ -86,4 +79,19 @@ function save(bugToSave) {
 
 function _saveBugsToFile() {
     return utilService.writeJsonFile('./data/bug.json', bugs)
+}
+
+function getPageCount() {
+    return query().then(bugs => {
+        return Math.ceil(bugs.length / PAGE_SIZE)
+    })
+}
+
+function getLabels() {
+    return query().then(bugs => {
+        const bugsLabels = bugs.reduce((acc, bug) => {
+            return [...acc, ...bug.labels]
+        }, [])
+        return [...new Set(bugsLabels)]
+    })
 }

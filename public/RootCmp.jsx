@@ -1,6 +1,6 @@
 
-const Router = ReactRouterDOM.HashRouter
-// const Router = ReactRouterDOM.BrowserRouter
+// const Router = ReactRouterDOM.HashRouter
+const Router = ReactRouterDOM.BrowserRouter
 const { Route, Routes } = ReactRouterDOM
 
 

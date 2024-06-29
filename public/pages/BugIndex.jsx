@@ -11,25 +11,48 @@ const { useState, useEffect, useRef } = React
 export function BugIndex() {
   const [bugs, setBugs] = useState([])
   const [filterBy, setFilterBy] = useState(bugService.getDefaultFilter())
-  const [bugsCount, setBugsCount] = useState()
+  const [pageCount, setPageCount] = useState(0)
+  const [labels, setLabels] = useState([])
+
 
   const debouncedSetFilterBy = useRef(utilService.debounce(onSetFilterBy, 500))
+
+  useEffect(() => {
+    loadPageCount()
+    loadLabels()
+  }, [])
 
   useEffect(() => {
     loadBugs()
   }, [filterBy])
 
+
   function loadBugs() {
     bugService.query(filterBy)
-      .then(bugsData => {
-        setBugs(bugsData.data)
-        setBugsCount(bugsData.totalBugsCount)
-      })
+      .then(setBugs)
       .catch(err => {
-        console.error('Failed to load bugs:', err);
+        console.error('Failed to load bugs:', err)
+        showErrorMsg('cannot load bugs')
       })
   }
 
+  function loadPageCount() {
+    bugService.getPageCount()
+      .then(pageCount => setPageCount(+pageCount))
+      .catch(err => {
+        console.log('err:', err)
+        showErrorMsg('cannot get page count')
+      })
+  }
+
+  function loadLabels() {
+    bugService.getLabels()
+      .then(labels => setLabels(labels))
+      .catch(err => {
+        console.log('err:', err)
+        showErrorMsg('cannot load labels')
+      })
+  }
 
   function onSetFilterBy(filterBy) {
     setFilterBy(prevFilter => ({ ...prevFilter, ...filterBy, pageIdx: 0 }))
@@ -41,6 +64,7 @@ export function BugIndex() {
       .then(() => {
         console.log('Deleted Succesfully!')
         setBugs(prevBugs => prevBugs.filter((bug) => bug._id !== bugId))
+        loadPageCount()
         showSuccessMsg('Bug removed')
       })
       .catch((err) => {
@@ -54,12 +78,15 @@ export function BugIndex() {
       title: prompt('Bug title?'),
       description: prompt('Bug description?'),
       severity: +prompt('Bug severity?'),
+      createdAt: new Date()
     }
+
     bugService.save(bug)
       .then((savedBug) => {
         console.log('Added Bug', savedBug)
         setBugs(prevBugs => [...prevBugs, savedBug])
         showSuccessMsg('Bug added')
+        loadPageCount()
       })
       .catch((err) => {
         console.log('Error from onAddBug ->', err)
@@ -84,26 +111,30 @@ export function BugIndex() {
       })
   }
 
-  function onGetPage(diff) {
-    if (filterBy.pageIdx + diff < 0) {
-      return setFilterBy(prevFilter => ({ ...prevFilter, pageIdx: Math.ceil(bugsCount / 5) - 1 }))
-    }
-    if (filterBy.pageIdx + diff > (Math.ceil(bugsCount / 5) - 1)) {
-      return setFilterBy(prevFilter => ({ ...prevFilter, pageIdx: 0 }))
-    }
-    setFilterBy(prev => ({ ...prev, pageIdx: prev.pageIdx + diff }))
+  function onDownloadPdf() {
+    bugService.downloadPdf()
+      .then(() => {
+        console.log('PDF DOWNLOAD')
+        showSuccessMsg('Download pdf successfully')
+      })
+      .catch(err => {
+        console.log('err:', err)
+        showErrorMsg('Cannot download pdf')
+      })
   }
 
-  // function onPDFDownload() {
-  //   pdfService.buildPDF('../assets/pdf/bugs.pdf', bugs)
-  //     // .then(utilService.download('./assets/pdf/bugs.pdf', 'bugs.pdf'))
-  // }
+  function onGetPage(diff) {
+    let pageIdx = filterBy.pageIdx + diff
+    if (pageIdx < 0) pageIdx = pageCount - 1
+    if (pageIdx > pageCount - 1) pageIdx = 0
+    setFilterBy(prev => ({ ...prev, pageIdx }))
+  }
 
   return (
     <main>
       <h3>Bugs App</h3>
-      <BugFilter filterBy={filterBy} onSetFilterBy={debouncedSetFilterBy.current} />
-      {/* <button onClick={onPDFDownload}>Download Bugs Pdf</button> */}
+      <BugFilter filterBy={filterBy} onSetFilterBy={debouncedSetFilterBy.current} labels={labels}/>
+      <button onClick={onDownloadPdf}>Download Bugs Pdf</button>
       <main>
         <button onClick={onAddBug}>Add Bug 🪲</button>
         <button onClick={() => onGetPage(-1)}>-</button>

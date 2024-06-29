@@ -1,6 +1,8 @@
 import path from 'path'
 import express from 'express'
 import cookieParser from 'cookie-parser'
+import PDFDocument from 'pdfkit'
+import fs from 'fs'
 
 import { bugService } from './services/bug.service.server.js'
 import { loggerService } from './services/logger.service.js'
@@ -21,12 +23,12 @@ app.get('/api/bug', (req, res) => {
         severity: +req.query.severity || 0,
         pageIdx: +req.query.pageIdx || 0,
         sortBy: req.query.sortBy || '',
-        sortDir: req.query.sortDir || 1
+        sortDir: req.query.sortDir || 1,
+        userId: req.query.userId || null
     }
 
     bugService.query(filterBy)
         .then(bugs => res.send(bugs))
-        .then(bugs => console.log('bugs:', bugs))
         .catch(err => {
             loggerService.error(`Couldn't get bugs...`)
             console.log('err:', err)
@@ -136,7 +138,7 @@ app.get('/api/user', (req, res) => {
 })
 
 app.get('/api/user/:userId', (req, res) => {
-    const {userId} = req.params
+    const { userId } = req.params
     userService.getById(userId)
         .then((user) => {
             res.send(user)
@@ -186,9 +188,9 @@ app.post('/api/auth/logout', (req, res) => {
 })
 
 // Fallback route
-// app.get('/**', (req, res) => {
-//   res.sendFile(path.resolve('public/index.html'))
-// })
+app.get('/**', (req, res) => {
+    res.sendFile(path.resolve('public/index.html'))
+})
 
 
 const PORT = process.env.PORT || 3030
